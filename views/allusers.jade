@@ -1,0 +1,16 @@
+extend admin
+
+block content
+    h1 All Users
+    if users
+        table(border="1")
+            tr
+                th Name    
+                th Email    
+                th Username
+                each user in users
+                    if user.username != 'admin'
+                        tr
+                            td #{user.name}
+                            td #{user.email}
+                            td #{user.username}

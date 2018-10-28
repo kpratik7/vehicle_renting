@@ -1,0 +1,21 @@
+extend admin
+
+block content
+    h1 All Vehicles
+    if vehicles
+        table(border="1").table-hover
+            tr
+                th vehicle_id
+                th vehicle_type
+                th vehicle_name
+                th vehicle_manuf
+                each vehicle in vehicles
+                    tr
+                        td #{vehicle.vehicle_id}
+                        td #{vehicle.vehicle_type}
+                        td #{vehicle.vehicle_name}
+                        td #{vehicle.vehicle_manuf}
+
+
+
+                        

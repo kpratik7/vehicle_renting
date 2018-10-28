@@ -1,0 +1,37 @@
+extend layout
+
+block content
+  h1 Members Area
+  p Welcome to the members area
+  p
+    | Vivamus hendrerit arcu sed erat molestie
+    | vehicula. Sed auctor neque eu tellus
+    | rhoncus ut eleifend nibh porttitor. Ut in.
+  p
+    | Donec congue lacinia dui, a porttitor
+    | lectus condimentum laoreet. Nunc eu
+    | ullamcorper orci. Quisque eget odio ac
+    | lectus vestibulum faucibus eget in metus.
+    | In pellentesque faucibus vestibulum. Nulla
+    | at nulla justo, eget luctus tortor.
+  if users
+    table(border="1")
+      tr
+        th Name   
+        th Email     
+        th Username
+        if vehicle
+          th vehicle_id
+        if session
+          th session_start
+          th session_end
+      tr
+        td #{users.name}
+        td #{users.email}
+        td #{users.username}
+          if vehicle
+            td #{vehicle.vehicle_id}  
+          if session
+            td #{session.session_start} 
+            td #{session.session_end} 
+                     
