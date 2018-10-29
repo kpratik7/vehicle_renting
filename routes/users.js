@@ -12,9 +12,10 @@ var passport = require('passport');
 var LocalStratergy = require('passport-local').Strategy;
 
 /* GET users listing. */
-router.get('/member', function (req, res, next) {
+router.get('/member/:username', function (req, res, next) {
   // res.send('respond with a resource');
-  var user_name = req.user.username;
+  var user_name = req.params.username;
+  console.log(user_name)
   User.findOne({
     username: user_name
   }, function (err, users) {
@@ -58,12 +59,9 @@ router.get('/register', function (req, res, next) {
     title: 'Register'
   });
 });
-router.get('/login', function (req, res, next) {
-  res.render('login', {
-    title: 'Login'
-  });
-});
-router.get('/bookvehicle', function (req, res, next) {
+
+
+router.get('/member/:username/bookvehicle', function (req, res, next) {
   Vehicle.find({vehicle_inuse:false},function (err, vehicles) {
     if (err) throw err
     res.render('bookvehicle', {
@@ -73,9 +71,9 @@ router.get('/bookvehicle', function (req, res, next) {
   })
 });
 
-router.post('/bookvehicle', function (req, res, next) {
+router.post('/member/:username/bookvehicle', function (req, res, next) {
 
-  var username = req.body.username;
+  var username = req.params.username;
   console.log("inside bookvehicle " + username)
   var vehicle_id = req.body.vehicle_id;
 
@@ -90,7 +88,7 @@ router.post('/bookvehicle', function (req, res, next) {
       if (err) throw err
       req.flash('error', "user already in session")
       res.location('/');
-      res.redirect('/users/member')
+      res.redirect('/users/member/'+username)
     } else {
       Session.addSession(newSession, function (err, session) {
         if (err) throw err
@@ -106,15 +104,20 @@ router.post('/bookvehicle', function (req, res, next) {
       });
       req.flash('success', 'you are now registered')
       res.location('/');
-      res.redirect('/users/member')
+      res.redirect('/users/member/'+username)
     }
   })
   // }
   // }
 });
 
-router.post('/login',
-  passport.authenticate('local', {
+router.get('/login', function (req, res, next) {
+  res.render('login', {
+    title: 'Login'
+  });
+});
+
+router.post('/login',passport.authenticate('local', {
     failureRedirect: '/users/login',
     failureFlash: 'Invalid Username or password.'
   }),function (req, res) {
@@ -205,29 +208,30 @@ router.post('/register', function (req, res, next) {
 });
 
 
-router.get('/returnvehicle', function (req, res) {
-  console.log("/return vehicle "+res.locals.user.username)
+router.get('/member/:username/returnvehicle', function (req, res) {
   Session.findOne({
-    username: res.locals.user.username,
+    username: req.params.username,
     session_end: null
   }, function (err, session) {
     if (err) throw err
-    console.log("/session "+session)
+    // console.log("/session "+session)
     if (session) {
       res.render('returnvehicle', {
         title: 'returnvehicle',
         session: session
       });
-      
     } else {
       req.flash('error', 'no booked vehicle')
-      res.redirect('/users/member')
+      res.location('/')
+      res.redirect('/users/member/'+req.params.username)
     }
   })
-})
-router.post('/returnvehicle', function (req, res) {
+});
+
+
+router.post('/member/:username/returnvehicle', function (req, res) {
   Session.findOneAndUpdate({
-    username: req.body.username,
+    username: req.params.username,
     session_end: null
   }, {
     session_end: Date.now()
@@ -242,13 +246,15 @@ router.post('/returnvehicle', function (req, res) {
         if(err) throw err
         console.log(vehicle)
         req.flash('success', 'you have returned the vehicle')
-        res.redirect('/users/member')
+        res.redirect('/users/member/'+req.params.username)
+        console.log('username')
       })
     } else {
       console.log("no session")
     }
   })
-})
+});
+
 router.get('/logout', function (req, res) {
   req.logout();
   req.flash('success', 'You are now Logged out')

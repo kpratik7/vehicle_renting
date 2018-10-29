@@ -1,0 +1,14 @@
+extend layout
+
+block content
+    h1 Vehicles in #{location_name} :
+    p Total no. of vehicles in #{location_name} : #{total_count} 
+    p No. of vehicles that are available to hire in  #{location_name} : #{inactive_count} 
+    
+    if vehicles
+        h1 Vehicle details :
+            each vehicle, i in vehicles
+                h5 Vehicle No : #{i+1}
+                p Vehicle Plate Number : #{vehicle.vehicle_id}
+                p Vehicle Type : #{vehicle.vehicle_type}
+                p Vehicle Model Name :#{vehicle.vehicle_name}

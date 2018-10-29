@@ -26,12 +26,16 @@ var VehicleSchema = mongoose.Schema({
     vehicle_inuse: {
         type: Boolean,
         default: false
+    },
+    vehicle_location: {
+        type: String,
+        required:true
     }
 });
 
 var Vehicle = module.exports = mongoose.model('Vehicle', VehicleSchema);
 
-module.exports.getUserById = function (id, callback) {
+module.exports.getVehicleById = function (id, callback) {
     Vehicle.findById(id, callback);
     // console.log(id)
 }

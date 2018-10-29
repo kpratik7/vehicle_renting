@@ -5,11 +5,10 @@ block content
         if errors
             each error, i in errors
                 div.alert.alert-danger #{error.msg}
-    form(action="/users/bookvehicle", method="post")
+    form(action="/users/member/#{user.username}/bookvehicle", method="post")
         .form-group
             //- label Vehicle Plale Number
             //- input.form-control(name='vehicle_id', type='text', placeholder='Enter Vehicle Plale Number')
-            input.form-control(name='username', type='text', value='#{user.username}' hidden)
             label Select
             select.form-control(name='vehicle_id')
                 option(hidden) Please select an option

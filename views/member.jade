@@ -16,26 +16,26 @@ block content
     | at nulla justo, eget luctus tortor.
 
     if users
-    p
-      strong Name : 
-      |  #{users.name}
-    p
-      strong Email : 
-      |  #{users.email}
-    p
-      strong Username : 
-      |  #{users.Username}
-    if vehicle  
       p
-        strong vehicle_id : 
-        |  #{vehicle.vehicle_id}
-    if session  
+        strong Name : 
+        |  #{users.name}
       p
-        strong session_start : 
-        |  #{session.session_start}
+        strong Email : 
+        |  #{users.email}
       p
-        strong session_end : 
-        |  #{session.session_end}
+        strong Username : 
+        |  #{users.username}
+      if vehicle  
+        p
+          strong vehicle_id : 
+          |  #{vehicle.vehicle_id}
+      if session  
+        p
+          strong session_start : 
+          |  #{session.session_start}
+        p
+          strong session_end : 
+          |  #{session.session_end}
 
         //- if users
   //-   table(border="1")
