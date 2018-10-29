@@ -1,7 +1,6 @@
 form{
-    padding-left: 35px;
-    padding-right: 35px;
-    width: 600px;
+    padding: 0 10%;
+    width: 100%;
     margin: auto;
 }
 label{
@@ -47,8 +46,9 @@ body{
 }
 .main{
     display:grid;
-    grid-template-columns: repeat(4,1fr);
+    grid-template-columns: repeat(auto-fill,minmax(200px, 1fr));
     /* background-color: cadetblue; */
+    grid-auto-flow: row;
     grid-gap: 25px;
 }
 .item{
@@ -57,6 +57,7 @@ body{
     background-color: grey;
 }
 h1{
+    font-size: 1.5rem;
     margin: 1rem 0 ;
 }
 table {

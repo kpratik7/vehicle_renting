@@ -14,24 +14,46 @@ block content
     | lectus vestibulum faucibus eget in metus.
     | In pellentesque faucibus vestibulum. Nulla
     | at nulla justo, eget luctus tortor.
-  if users
-    table(border="1")
-      tr
-        th Name   
-        th Email     
-        th Username
-        if vehicle
-          th vehicle_id
-        if session
-          th session_start
-          th session_end
-      tr
-        td #{users.name}
-        td #{users.email}
-        td #{users.username}
-          if vehicle
-            td #{vehicle.vehicle_id}  
-          if session
-            td #{session.session_start} 
-            td #{session.session_end} 
-                     
+
+    if users
+    p
+      strong Name : 
+      |  #{users.name}
+    p
+      strong Email : 
+      |  #{users.email}
+    p
+      strong Username : 
+      |  #{users.Username}
+    if vehicle  
+      p
+        strong vehicle_id : 
+        |  #{vehicle.vehicle_id}
+    if session  
+      p
+        strong session_start : 
+        |  #{session.session_start}
+      p
+        strong session_end : 
+        |  #{session.session_end}
+
+        //- if users
+  //-   table(border="1")
+  //-     tr
+  //-       th Name   
+  //-       th Email     
+  //-       th Username
+  //-       if vehicle
+  //-         th vehicle_id
+  //-       if session
+  //-         th session_start
+  //-         th session_end
+  //-     tr
+  //-       td #{users.name}
+  //-       td #{users.email}
+  //-       td #{users.username}
+  //-         if vehicle
+  //-           td #{vehicle.vehicle_id}  
+  //-         if session
+  //-           td #{session.session_start} 
+  //-           td #{session.session_end} 
