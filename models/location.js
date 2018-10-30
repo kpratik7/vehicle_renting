@@ -9,6 +9,9 @@ mongoose.connect('mongodb+srv://pratik:computer1993@cluster0-lmxzc.gcp.mongodb.n
 var LocationSchema = mongoose.Schema({
     location_name: {
         type: String
+    },
+    location_image: {
+        type: String
     }
 });
 

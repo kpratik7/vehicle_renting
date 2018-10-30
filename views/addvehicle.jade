@@ -18,6 +18,12 @@ block content
                 option(value="4-wheeler") 4-Wheeler
                 |   
                 option(value="other") Other
+            label Vehicle Location
+            select.form-control(name='vehicle_location')
+                option(hidden) Please select an option
+                if locations
+                each location in locations
+                        option.ucfirst(value='#{location.location_name}') #{location.location_name}
             label Vehicle Model
             input.form-control(name='vehicle_name', type='text', placeholder='Enter Vehicle Model')
             label Vehicle Manufacturer

@@ -9,12 +9,17 @@ block content
         .form-group
             //- label Vehicle Plale Number
             //- input.form-control(name='vehicle_id', type='text', placeholder='Enter Vehicle Plale Number')
-            label Select
-            select.form-control(name='vehicle_id')
-                option(hidden) Please select an option
+             label Select
+            select.form-control(id="select_location" name='vehicle_location')
+                option(hidden) Please select a Location
                     each vehicle in vehicles
-                        option(value=vehicle.vehicle_id) #{vehicle.vehicle_name} - #{vehicle.vehicle_id}
+                        option(value=vehicle.vehicle_location) #{vehicle.vehicle_location}
+            label Select
+            select.form-control(id="select_id" name='vehicle_id')
+                option(hidden) Please select a Location first
+                    //- each vehicle in vehicles
+                    //-     option(value=vehicle.vehicle_id) #{vehicle.vehicle_id}
             //- label Vehicle Manufacturer
             //- input.form-control(name='vehicle_manuf', type='password', placeholder='Enter Vehicle Manufacturer')
-        input.btn.btn-primary(type='submit', name='submit',value='Book Vehicle')
+        input.btn.btn-primary(id='book_vehicle' disabled='disabled' type='submit', name='submit',value='Book Vehicle' onclick='return validateBooking()')
     

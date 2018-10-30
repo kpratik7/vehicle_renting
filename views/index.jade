@@ -6,6 +6,6 @@ block content
     each location in locations
       div
         a(href='/#{location.location_name}')
-          .item
+          .item(style="background-image: url('/uploads/#{location.location_image}')")
             .text-bg
-              .item-text #{location.location_name}
+              .item-text.ucfirst #{location.location_name}

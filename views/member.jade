@@ -18,24 +18,35 @@ block content
     if users
       p
         strong Name : 
-        |  #{users.name}
+        | #{users.name}
       p
         strong Email : 
-        |  #{users.email}
+        | #{users.email}
       p
         strong Username : 
-        |  #{users.username}
-      if vehicle  
-        p
-          strong vehicle_id : 
-          |  #{vehicle.vehicle_id}
-      if session  
-        p
-          strong session_start : 
-          |  #{session.session_start}
-        p
-          strong session_end : 
-          |  #{session.session_end}
+        | #{users.username}
+      table(style={'width':'fit-content','padding':'0px'}) 
+        tr
+          th(style={'text-align':'left','padding':'0px','width':'auto'}) Select Session No. to view session details : 
+          td
+            select.form-control(id='session_no' name="session_no")
+              option(hidden) Select Session No.
+                if sessions 
+                  each session,i in sessions
+                    option(value='#{i+1}') #{i+1}
+      if sessions
+        each session, i in sessions
+          div(id='session_id_#{i+1}',style='display:none',class='session_details')
+            strong Session No. #{i+1} 
+            li
+              strong vehicle_id : 
+              |  #{session.vehicle_id}
+            li
+              strong session_start : 
+              |  #{session.session_start}
+            li
+              strong session_end : 
+              |  #{session.session_end}
 
         //- if users
   //-   table(border="1")

@@ -4,6 +4,10 @@ var expressValidator = require('express-validator');
 router.use(expressValidator()) //for using validation in form post methods
 var User = require('../models/user')
 var Vehicle = require('../models/vehicle')
+var Location = require('../models/location')
+var multer = require('multer')
+//handle file uploads
+var upload = multer({dest:'./public/uploads'})
 
 /* GET users listing. */
 router.get('/', function (req, res, next) {
@@ -13,20 +17,15 @@ router.get('/', function (req, res, next) {
     // var count;
     User.count(function (err, user_count) {
         if (err) throw err
-        Vehicle.count(function (err,vehicle_count) {
-            if(err) throw err
+        Vehicle.count(function (err, vehicle_count) {
+            if (err) throw err
             res.render('admin', {
                 title: 'admin',
                 user_count: (user_count - 1),
                 vehicle_count: vehicle_count
             })
         })
-        
     })
-
-
-
-    // })
 });
 router.get('/allusers', function (req, res, next) {
     User.find(function (err, users) {
@@ -48,14 +47,15 @@ router.get('/allvehicles', function (req, res, next) {
     })
 });
 router.get('/addvehicle', function (req, res, next) {
-    // res.send('respond with a resource');
-    // User.find(function (err, users) {
-    // if (err) return console.error(err);
-    res.render('addvehicle', {
-        title: 'addvehicle',
-        // users: users
+    Location.find({}, null,{sort: {location_name: 1}},function (err, locations) {
+        res.render('addvehicle', {
+            title: 'addvehicle',
+            locations: locations
+        })
+        console.log(locations)
     })
-    // })
+
+
 });
 router.post('/addvehicle', function (req, res, next) {
 
@@ -63,6 +63,7 @@ router.post('/addvehicle', function (req, res, next) {
     var vehicle_type = req.body.vehicle_type;
     var vehicle_name = req.body.vehicle_name;
     var vehicle_manuf = req.body.vehicle_manuf;
+    var vehicle_location = req.body.vehicle_location;
 
     req.checkBody('vehicle_id', 'Vehicle plate number is required').notEmpty();
 
@@ -91,7 +92,8 @@ router.post('/addvehicle', function (req, res, next) {
                     vehicle_id: vehicle_id,
                     vehicle_type: vehicle_type,
                     vehicle_name: vehicle_name,
-                    vehicle_manuf: vehicle_manuf
+                    vehicle_manuf: vehicle_manuf,
+                    vehicle_location: vehicle_location
                 });
                 Vehicle.addVehicle(newVehicle, function (err, vehicle) {
                     if (err) throw err
@@ -105,6 +107,52 @@ router.post('/addvehicle', function (req, res, next) {
         })
 
     }
+});
+
+router.get('/addlocation', function (req, res, next) {
+    res.render('addlocation', {
+        title: 'addlocation'
+    })
+
+});
+
+router.post('/addlocation', upload.single('location_image'), function (req, res, next) {
+    location_name = req.body.location_name.toLowerCase()
+    if(req.file){
+        
+    }else{
+        var location_image = 'noimg.jpg'
+    }
+    Location.findOne({
+        location_name: location_name
+    }, function (err, location) {
+        if(err) throw err
+        if (location) {
+            res.render('addlocation', {
+                title: 'addlocation',
+                errors: [{
+                    location: 'body',
+                    param: '',
+                    msg: 'Duplicate Location not allowed',
+                    value: ''
+                }]
+            })
+        } else {
+            console.log(req.file)
+            var newLocation = new Location({
+                location_name: location_name,
+                location_image: req.file.filename
+            })
+            Location.addLocation(newLocation, function (err, loction) {
+                if (err) throw err
+            })
+            req.flash('success', 'Location Added')
+
+            res.location('/');
+            res.redirect('/admin/addlocation')
+        }
+    })
+
 });
 
 module.exports = router;

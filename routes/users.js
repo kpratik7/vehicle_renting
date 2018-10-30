@@ -20,24 +20,24 @@ router.get('/member/:username', function (req, res, next) {
     username: user_name
   }, function (err, users) {
     if (err) throw (err)
-    Session.findOne({
+    Session.find({
       username: user_name
-    }, function (err, session) {
+    }, function (err, sessions) {
       if (err) throw err
-      if (session) {
-        Vehicle.findOne({
-          vehicle_id: session.vehicle_id,
+      if (sessions) {
+        Vehicle.find({
+          vehicle_id: sessions.vehicle_id,
         }, function (err, vehicle) {
           if (err) throw err
           res.render('member', {
             title: 'member',
             users: users,
             vehicle: vehicle,
-            session: session
+            sessions: sessions
           })
           console.log("veh " + vehicle)
           console.log("users " + users)
-          console.log("sessions " + session)
+          console.log("sessions " + sessions)
         })
       } else {
         res.render('member', {
@@ -62,7 +62,7 @@ router.get('/register', function (req, res, next) {
 
 
 router.get('/member/:username/bookvehicle', function (req, res, next) {
-  Vehicle.find({vehicle_inuse:false},function (err, vehicles) {
+  Vehicle.find(function (err, vehicles) {
     if (err) throw err
     res.render('bookvehicle', {
       title: 'bookvehicle',
@@ -82,33 +82,47 @@ router.post('/member/:username/bookvehicle', function (req, res, next) {
     vehicle_id: vehicle_id,
     session_start: Date.now()
   });
-  Session.findOne({username: username,session_end: null}, function (err, user) {
+  Session.findOne({
+    username: username,
+    session_end: null
+  }, function (err, user) {
     if (err) throw err
     if (user) {
       if (err) throw err
       req.flash('error', "user already in session")
       res.location('/');
-      res.redirect('/users/member/'+username)
+      res.redirect('/users/member/' + username)
     } else {
       Session.addSession(newSession, function (err, session) {
         if (err) throw err
-        console.log("/bookv post "+session)
+        console.log("/bookv post " + session)
         Vehicle.findOneAndUpdate({
-          vehicle_id : session.vehicle_id
-        },{
-          vehicle_inuse : true
-        },function (err,vehicle) {
-          if(err) throw err
+          vehicle_id: session.vehicle_id
+        }, {
+          vehicle_inuse: true
+        }, function (err, vehicle) {
+          if (err) throw err
           console.log(vehicle)
         })
       });
       req.flash('success', 'you are now registered')
       res.location('/');
-      res.redirect('/users/member/'+username)
+      res.redirect('/users/member/' + username)
     }
   })
   // }
   // }
+});
+
+router.get('/member/:username/bookvehicle/:location', function (req, res, next) {
+  var vehicle_location = req.params.location
+  Vehicle.find({
+    vehicle_inuse: false,
+    vehicle_location: vehicle_location
+  }, function (err, vehicles) {
+    if (err) throw err
+    res.json(vehicles)
+  })
 });
 
 router.get('/login', function (req, res, next) {
@@ -117,14 +131,13 @@ router.get('/login', function (req, res, next) {
   });
 });
 
-router.post('/login',passport.authenticate('local', {
-    failureRedirect: '/users/login',
-    failureFlash: 'Invalid Username or password.'
-  }),function (req, res) {
-    req.flash('success', 'You are now logged in.')
-    res.redirect('/')
-  }
-);
+router.post('/login', passport.authenticate('local', {
+  failureRedirect: '/users/login',
+  failureFlash: 'Invalid Username or password.'
+}), function (req, res) {
+  req.flash('success', 'You are now logged in.')
+  res.redirect('/')
+});
 
 passport.serializeUser(function (user, done) {
   done(null, user.id);
@@ -223,7 +236,7 @@ router.get('/member/:username/returnvehicle', function (req, res) {
     } else {
       req.flash('error', 'no booked vehicle')
       res.location('/')
-      res.redirect('/users/member/'+req.params.username)
+      res.redirect('/users/member/' + req.params.username)
     }
   })
 });
@@ -239,14 +252,14 @@ router.post('/member/:username/returnvehicle', function (req, res) {
     if (err) throw err
     if (session) {
       Vehicle.findOneAndUpdate({
-        vehicle_id : session.vehicle_id
-      },{
-        vehicle_inuse : false
-      },function (err,vehicle) {
-        if(err) throw err
+        vehicle_id: session.vehicle_id
+      }, {
+        vehicle_inuse: false
+      }, function (err, vehicle) {
+        if (err) throw err
         console.log(vehicle)
         req.flash('success', 'you have returned the vehicle')
-        res.redirect('/users/member/'+req.params.username)
+        res.redirect('/users/member/' + req.params.username)
         console.log('username')
       })
     } else {
@@ -254,6 +267,8 @@ router.post('/member/:username/returnvehicle', function (req, res) {
     }
   })
 });
+
+
 
 router.get('/logout', function (req, res) {
   req.logout();

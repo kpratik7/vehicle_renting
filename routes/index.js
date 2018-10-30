@@ -5,7 +5,7 @@ var Location = require('../models/location')
 var Vehicle = require('../models/vehicle')
 /* GET home page. */
 router.get('/', function (req, res, next) {
-  Location.find(function (err, locations) {
+  Location.find({}, null,{sort: {location_name: 1}},function (err, locations) {
     if (err) throw err
     res.render('index', {
       title: 'renting',
@@ -14,7 +14,7 @@ router.get('/', function (req, res, next) {
   })
 });
 router.get('/:location_name', function (req, res, next) {
-  location_name = req.params.location_name
+  location_name = req.params.location_name.toLowerCase()
   Vehicle.count({
     vehicle_location: location_name
   }, function (err, total_count) {

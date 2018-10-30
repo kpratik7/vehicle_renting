@@ -6,8 +6,12 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require('express-session');
 var passport = require('passport');
-var LocalStratergy = require('passport-local').Strategy;
 var expressValidator = require('express-validator')
+var LocalStratergy = require('passport-local').Strategy;
+var multer = require('multer')
+//handle file uploads
+var upload = multer({dest:'./public/uploads/'})
+
 var flash = require('connect-flash');
 var bcrypt = require('bcryptjs');
 var mongodb = require('mongodb');
@@ -92,5 +96,6 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
 
 module.exports = app;
