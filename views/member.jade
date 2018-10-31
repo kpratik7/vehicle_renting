@@ -43,10 +43,10 @@ block content
               |  #{session.vehicle_id}
             li
               strong session_start : 
-              |  #{session.session_start}
+              |  #{new Date(session.session_start)}
             li
               strong session_end : 
-              |  #{session.session_end}
+              |  #{new Date(session.session_end)}
 
         //- if users
   //-   table(border="1")

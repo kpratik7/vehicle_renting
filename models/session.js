@@ -18,11 +18,11 @@ var SessionSchema = mongoose.Schema({
         index: true
     },
     session_start: {
-        type: Date,
-        default: Date.now
+        type: Number,
+        default: Date
     },
     session_end: {
-        type: Date,
+        type: Number,
         default: null
     }
 });

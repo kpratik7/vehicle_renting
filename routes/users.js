@@ -95,14 +95,14 @@ router.post('/member/:username/bookvehicle', function (req, res, next) {
     } else {
       Session.addSession(newSession, function (err, session) {
         if (err) throw err
-        console.log("/bookv post " + session)
+        // console.log("/bookv post " + session)
         Vehicle.findOneAndUpdate({
           vehicle_id: session.vehicle_id
         }, {
           vehicle_inuse: true
         }, function (err, vehicle) {
           if (err) throw err
-          console.log(vehicle)
+          // console.log(vehicle)
         })
       });
       req.flash('success', 'you are now registered')
@@ -244,6 +244,7 @@ router.get('/member/:username/returnvehicle', function (req, res) {
 
 router.post('/member/:username/returnvehicle', function (req, res) {
   var session_end = req.body.session_end
+  // console.log(session_end)
   Session.findOneAndUpdate({
     username: req.params.username,
     session_end: null
@@ -258,10 +259,10 @@ router.post('/member/:username/returnvehicle', function (req, res) {
         vehicle_inuse: false
       }, function (err, vehicle) {
         if (err) throw err
-        console.log(vehicle)
+        // console.log(vehicle)
         req.flash('success', 'you have returned the vehicle')
         res.redirect('/users/member/' + req.params.username)
-        console.log('username')
+        // console.log('username')
       })
     } else {
       console.log("no session")
