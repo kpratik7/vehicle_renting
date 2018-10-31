@@ -48,23 +48,3 @@ block content
               strong session_end : 
               |  #{new Date(session.session_end)}
 
-        //- if users
-  //-   table(border="1")
-  //-     tr
-  //-       th Name   
-  //-       th Email     
-  //-       th Username
-  //-       if vehicle
-  //-         th vehicle_id
-  //-       if session
-  //-         th session_start
-  //-         th session_end
-  //-     tr
-  //-       td #{users.name}
-  //-       td #{users.email}
-  //-       td #{users.username}
-  //-         if vehicle
-  //-           td #{vehicle.vehicle_id}  
-  //-         if session
-  //-           td #{session.session_start} 
-  //-           td #{session.session_end} 
