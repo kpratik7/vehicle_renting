@@ -243,12 +243,12 @@ router.get('/member/:username/returnvehicle', function (req, res) {
 
 
 router.post('/member/:username/returnvehicle', function (req, res) {
-  const now = new Date();
+  var session_end = req.params.session_end
   Session.findOneAndUpdate({
     username: req.params.username,
     session_end: null
   }, {
-    session_end: now
+    session_end: session_end
   }, function (err, session) {
     if (err) throw err
     if (session) {

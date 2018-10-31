@@ -8,7 +8,7 @@ block content
     form(action="/users/member/#{session.username}/returnvehicle", method="post")
         .form-group
             //- input.form-control(name='username', type='text', value='#{session.username}' hidden)
-            //- input.form-control(name='session_end', type='datetime-local', value = Date.now())
+            input.form-control(hidden name='session_end', type='', value = Date.now())
             label Vehicle Plale Number
             select(name="vehicle_id").form-control
                     option(value=session.vehicle_id) #{session.vehicle_id}
