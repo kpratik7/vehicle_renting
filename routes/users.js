@@ -243,7 +243,7 @@ router.get('/member/:username/returnvehicle', function (req, res) {
 
 
 router.post('/member/:username/returnvehicle', function (req, res) {
-  var session_end = req.params.session_end
+  var session_end = req.body.session_end
   Session.findOneAndUpdate({
     username: req.params.username,
     session_end: null
