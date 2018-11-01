@@ -18,8 +18,7 @@ var SessionSchema = mongoose.Schema({
         index: true
     },
     session_start: {
-        type: Date,
-        default: Date.now
+        type: Date
     },
     session_end: {
         type: Date,

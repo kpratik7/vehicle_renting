@@ -74,7 +74,7 @@ router.get('/member/:username/bookvehicle', function (req, res, next) {
 router.post('/member/:username/bookvehicle', function (req, res, next) {
 
   var username = req.params.username;
-  console.log("inside bookvehicle " + username)
+  console.log("inside bookvehicle " + Date.now())
   var vehicle_id = req.body.vehicle_id;
 
   var newSession = new Session({

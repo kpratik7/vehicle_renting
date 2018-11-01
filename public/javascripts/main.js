@@ -36,7 +36,7 @@ $(document).ready(
            $(id).show();
         
         });
-        let dates = $('.session_date').text()
+        // let dates = $('.session_date').text()
         $('.session_date').each(function () {
             var tempDate = new Date(Date.parse($(this).text()));
             console.log(tempDate)

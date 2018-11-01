@@ -14,7 +14,7 @@ router.get('/', function (req, res, next) {
   })
 });
 router.get('/:location_name', function (req, res, next) {
-  location_name = req.params.location_name.toLowerCase()
+  location_name = req.params.location_name
   Vehicle.count({
     vehicle_location: location_name
   }, function (err, total_count) {
