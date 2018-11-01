@@ -32,14 +32,12 @@ $(document).ready(
         $('#session_no').on('change', function () {
             $('.session_details').hide()
            var id = '#session_id_'+$(this).val();
-           console.log(id)
            $(id).show();
         
         });
-        // let dates = $('.session_date').text()
+
         $('.session_date').each(function () {
             var tempDate = new Date(Date.parse($(this).text()));
-            console.log(tempDate)
             $(this).text(tempDate)
             
         })

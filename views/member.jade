@@ -44,7 +44,13 @@ block content
             li
               strong session_start : 
               span.session_date #{session.session_start}
-            li
-              strong session_end : 
-              span.session_date #{session.session_end}
+            if(session.session_end)
+              li
+                strong session_end : 
+                span.session_date #{session.session_end}
+            else
+              li
+                strong session_end : 
+                span Vehicle not returned yet
+                
 
