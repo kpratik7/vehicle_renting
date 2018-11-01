@@ -43,8 +43,8 @@ block content
               |  #{session.vehicle_id}
             li
               strong session_start : 
-              |  #{new Date(session.session_start).toLocaleString()} #{new Date().getTimezoneOffset()}
+              span.session_date #{new Date(session.session_start)}
             li
               strong session_end : 
-              li #{new Date(session.session_end)} +#{new Date()}
+              span.session_date #{new Date(session.session_end)}
 

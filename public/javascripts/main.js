@@ -36,8 +36,12 @@ $(document).ready(
            $(id).show();
         
         });
-        
+        let dates = $('.session_date').text()
+        $('.session_date').each(function () {
+            var tempDate = new Date(Date.parse($(this).text())+new Date().getTimezoneOffset()*60000);
+            console.log(tempDate)
+            $(this).text(tempDate)
+            
+        })
     })
-    function ucfirst(string) {
-        return string.charAt(0)+string.substring(1)
-    }
+    
