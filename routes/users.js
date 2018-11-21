@@ -1,10 +1,9 @@
 var express = require('express');
 var router = express.Router();
-var expressValidator = require('express-validator');
-router.use(expressValidator()) //for using validation in form post methods
 var User = require('../models/user')
 var Vehicle = require('../models/vehicle')
 var Session = require('../models/session')
+var Locations = require('../models/location')
 
 var bcrypt = require('bcryptjs');
 var flash = require('connect-flash')
@@ -13,7 +12,6 @@ var LocalStratergy = require('passport-local').Strategy;
 
 /* GET users listing. */
 router.get('/member/:username', function (req, res, next) {
-  // res.send('respond with a resource');
   var user_name = req.params.username;
   console.log(user_name)
   User.findOne({
@@ -35,9 +33,6 @@ router.get('/member/:username', function (req, res, next) {
             vehicle: vehicle,
             sessions: sessions
           })
-          console.log("veh " + vehicle)
-          console.log("users " + users)
-          console.log("sessions " + sessions)
         })
       } else {
         res.render('member', {
@@ -62,19 +57,20 @@ router.get('/register', function (req, res, next) {
 
 
 router.get('/member/:username/bookvehicle', function (req, res, next) {
-  Vehicle.find(function (err, vehicles) {
+  Locations.find({},null,{sort:{location_name:1}},function (err, locations) {
     if (err) throw err
     res.render('bookvehicle', {
       title: 'bookvehicle',
-      vehicles: vehicles
+      locations : locations
     });
+    // console.log(locations)
   })
 });
 
 router.post('/member/:username/bookvehicle', function (req, res, next) {
 
   var username = req.params.username;
-  console.log("inside bookvehicle " + Date.now())
+  // console.log("inside bookvehicle " + Date.now())
   var vehicle_id = req.body.vehicle_id;
 
   var newSession = new Session({
@@ -89,7 +85,7 @@ router.post('/member/:username/bookvehicle', function (req, res, next) {
     if (err) throw err
     if (user) {
       if (err) throw err
-      req.flash('error', "user already in session")
+      req.flash('error', "You can book only one Vehicle at a time, Please return the booked Vehicle if you want to book a new Vehicle.")
       res.location('/');
       res.redirect('/users/member/' + username)
     } else {
@@ -105,7 +101,7 @@ router.post('/member/:username/bookvehicle', function (req, res, next) {
           // console.log(vehicle)
         })
       });
-      req.flash('success', 'you are now registered')
+      req.flash('success', `You have successfully booked vehicle with plate no. ${vehicle_id}`)
       res.location('/');
       res.redirect('/users/member/' + username)
     }
@@ -179,45 +175,32 @@ router.post('/register', function (req, res, next) {
   var email = req.body.email;
   var username = req.body.username;
   var password = req.body.password;
-  var password2 = req.body.password2;
 
-  req.checkBody('name', 'Name field is required').notEmpty();
-  req.checkBody('email', 'Email is required').notEmpty();
-  req.checkBody('email', 'Invalid Email').isEmail();
-  req.checkBody('username', 'Username is required').notEmpty();
-  req.checkBody('password', 'password field is required').notEmpty();
-  req.checkBody('password2', 'Passwords do not match').equals(req.body.password);
+  var newUser = new User({
+    name: name,
+    email: email,
+    username: username,
+    password: password
+  });
 
-  var errors = req.validationErrors();
-
-  if (errors) {
-    // console.log(errors)
-    res.render('register', {
-      errors: errors
-    });
-  } else {
-    var newUser = new User({
-      name: name,
-      email: email,
-      username: username,
-      password: password
-    });
-    User.findOne({
-      username: newUser.username
-    }, function (err, user) {
-      if (err) throw err
-      if (user) {
-        req.flash('error', 'User already in session')
-      } else {
-        User.createUser(newUser, function (err, user) {
-          if (err) throw err
-        });
-        req.flash('success', 'you are now registered')
+  User.findOne({
+    username: newUser.username
+  }, function (err, user) {
+    if (err) throw err
+    if (user) {
+      req.flash('error', 'Username already taken, Please select a different Username.')
+      res.location('/');
+      res.redirect('/users/register')
+      console.log(user)
+    } else {
+      User.createUser(newUser, function (err, user) {
+        if (err) throw err
+        req.flash('success', 'You are now a Registered User.')
         res.location('/');
         res.redirect('/')
-      }
-    })
-  }
+      });
+    }
+  })
 });
 
 
@@ -240,7 +223,6 @@ router.get('/member/:username/returnvehicle', function (req, res) {
     }
   })
 });
-
 
 router.post('/member/:username/returnvehicle', function (req, res) {
   var session_end = req.body.session_end
@@ -269,8 +251,6 @@ router.post('/member/:username/returnvehicle', function (req, res) {
     }
   })
 });
-
-
 
 router.get('/logout', function (req, res) {
   req.logout();

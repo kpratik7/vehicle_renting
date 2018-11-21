@@ -1,16 +1,43 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    min-height: 100vh;
+    background-color: #F2E9E4;
+    position: relative;
+    padding-bottom: 50px;
+}
+
 form {
-    padding: 0 10%;
+    padding: 2% 8%;
     width: 100%;
     margin: auto;
+}
+nav{
+    background-color: #2589BD;
+    color:white;
+}
+footer{
+    position:absolute;
+    bottom: 0;
+    text-align: center;
+    background-color: grey;
+    margin-top: 15px;
+    margin-bottom: 0px;
+    width: 100%;
+}
+a {
+    text-decoration: none;
 }
 
 label {
     margin-top: 0.5rem;
 }
 
-/* #messages{
-    width: 100%;
-} */
 ul.success,
 ul.error {
     padding-left: 0px;
@@ -38,35 +65,6 @@ ul.error li {
     list-style: none;
 }
 
-.container {
-    padding-top: 15px;
-}
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
-}
-
-.main {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    /* background-color: cadetblue; */
-    grid-auto-flow: row;
-    grid-gap: 25px;
-}
-
-.item {
-    border: 1px solid black;
-    background-color: grey;
-    background-position: center;
-    background-size: cover
-}
-
 h1 {
     font-size: 1.5rem;
     margin: 1rem 0;
@@ -84,26 +82,153 @@ th {
     text-align: center;
     padding: 10px;
 }
+.navbar{
+   /* padding-left: 50px;
+   padding-right: 50px; */
+   position: fixed;
+   width: 100%;
+}
+.main {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+    /* background-color: cadetblue; */
+    grid-auto-flow: row;
+    grid-gap: 25px;
+    /* grid-template-rows: repeat(auto-fill, minmax(190px, 1fr)); */
+}
+
+.item {
+    /* border: 0.5px solid transparent; */
+    background-color: grey;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100%;
+}
 
 .text-bg {
     display: flex;
     font-size: 18px;
-    margin-top: 75%;
-    background-color: rgba(0, 0, 0, 0.7);
+    /* margin-top: 75%; */
+    background-color: rgba(0, 0, 0, 0.6);
     color: whitesmoke;
     text-align: center;
-    /* height: 50%; */
+    
     justify-content: space-around;
 }
 
 .item-text {
     padding: 20px;
     align-self: center;
-    
+
 }
-a{
-    text-decoration: none;
+
+.container {
+    padding-top: 80px;
+    width: 100%;
 }
-.ucfirst{
+.intro-container{
+    /* background-color: grey; */
+    padding: 25px;
+}
+.intro-container-header{
+    /* background-color: #abccd1; */
+    text-decoration: underline;
+    padding: 15px;
+    margin: 25px 0px;
+}
+.intro-container-body{
+    background-color: cornflowerblue;
+    padding: 25px;
+}
+.profile-container {
+    /* background-color: grey; */
+    padding: 25px;
+}
+
+.session-container-header {
+    background-color: #abccd1;
+    padding: 5px 25px;
+}
+
+.session-container-body {
+    background-color: cornflowerblue;
+    padding: 25px;
+}
+
+.profile-container h1 {
+    margin-top: 0px;
+}
+
+.profile-container p:last-child {
+    margin-block-end: 0px;
+}
+
+.location-container {
+    /* background-color: #6CB7C7; */
+    padding: 25px;
+}
+.location-container h1 {
+    margin-top: 0px;
+}
+.location-container p:last-child {
+    margin-bottom: 0px;
+}
+.location-container-header {
+    background-color:#705D56;
+    padding: 1px 25px;
+}
+
+.location-container-body {
+    background-color: white;
+    padding: 25px;
+}
+/* .location-container-body:first-child{
+    padding-top: 5px;
+} */
+
+
+.location-container-body:nth-child(even){
+    background-color: rgb(196, 193, 193)
+}
+
+.location-container-body p:last-child {
+    margin-bottom: 0px;
+}
+
+.active {
+    font-weight: bold;
+}
+
+.form-container {
+    width: 98%;
+    margin: auto;
+    max-width: 600px;
+    background-color: #C6D5E0;
+    padding-bottom: 30px;
+    border-radius: 15px;
+    -webkit-box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 1);
+    -moz-box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 1);
+    box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 1);
+}
+
+.form-header {
+    padding-top: 30px;
+    padding-bottom: 1px;
+    text-align: center;
+    background-color:#2589BD;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    border-bottom: 1px solid black;
+}
+
+
+
+.ucfirst {
     text-transform: capitalize
+}
+
+.required {
+    color: red;
+    font-size: 12px;
 }

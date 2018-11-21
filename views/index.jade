@@ -1,11 +1,15 @@
 extend layout
 
 block content
-  h1 Location where our bikes are available
+  .intro-container
+    h2(style='text-align:center;text-decoration:underline') XYZ Company
+    p We, XYZ company are leading in the field of providing GOOD quality, MAINTAINED Vehicles for renting pusposes. We provide Commercial as well as Personal vehicles. 
+  .intro-container-header 
+    h4(style='margin-bottom:0px; text-align:center') Location where our Vehicles are available
   .main
     each location in locations
       div
         a(href='/#{location.location_name}')
-          .item(style="background-image: url('/uploads/#{location.location_image}')")
+          .item(style="background-image: url('/uploads/#{location.location_image}'); background-repeat: no-repeat")
             .text-bg
               .item-text.ucfirst #{location.location_name}

@@ -1,25 +1,28 @@
 extends layout
 
 block content
-    h2.page-header Book Vehicle
-        if errors
-            each error, i in errors
-                div.alert.alert-danger #{error.msg}
-    form(action="/users/member/#{user.username}/bookvehicle", method="post")
-        .form-group
-            //- label Vehicle Plale Number
-            //- input.form-control(name='vehicle_id', type='text', placeholder='Enter Vehicle Plale Number')
-             label Select
-            select.form-control(id="select_location" name='vehicle_location')
-                option(hidden) Please select a Location
-                    each vehicle in vehicles
-                        option(value=vehicle.vehicle_location) #{vehicle.vehicle_location}
-            label Select
-            select.form-control(id="select_id" name='vehicle_id')
-                option(hidden) Please select a Location first
-                    //- each vehicle in vehicles
-                    //-     option(value=vehicle.vehicle_id) #{vehicle.vehicle_id}
-            //- label Vehicle Manufacturer
-            //- input.form-control(name='vehicle_manuf', type='password', placeholder='Enter Vehicle Manufacturer')
-        input.btn.btn-primary(id='book_vehicle' disabled='disabled' type='submit', name='submit',value='Book Vehicle' onclick='return validateBooking()')
+    if errors
+        each error, i in errors
+            div.alert.alert-danger #{error.msg}
+    .form-container
+        .form-header
+            h4.page-header Book Vehicle
+            p Select Location and Vehicle to Book
+        form(action="/users/member/#{user.username}/bookvehicle", method="post")
+            .form-group
+                //- label Vehicle Plale Number
+                //- input.form-control(name='vehicle_id', type='text', placeholder='Enter Vehicle Plale Number')
+                label Select Location
+                select.form-control(id="select_location" name='vehicle_location')
+                    option(hidden) Please select a Location
+                        each location in locations
+                            option(value=location.location_name) #{location.location_name.charAt(0).toUpperCase()+location.location_name.substring(1)}
+                label Select Vehicle by Plate No.
+                select.form-control(id="select_id" name='vehicle_id')
+                    option(hidden) Please select a Location first
+                        //- each vehicle in vehicles
+                        //-     option(value=vehicle.vehicle_id) #{vehicle.vehicle_id}
+                //- label Vehicle Manufacturer
+                //- input.form-control(name='vehicle_manuf', type='password', placeholder='Enter Vehicle Manufacturer')
+            input.btn.btn-primary(id='book_vehicle' disabled='disabled' type='submit', name='submit',value='Book Vehicle' onclick='return validateBooking()')
     

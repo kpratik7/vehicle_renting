@@ -4,13 +4,13 @@ var expressValidator = require('express-validator');
 router.use(expressValidator()) //for using validation in form post methods
 var User = require('../models/user')
 var Vehicle = require('../models/vehicle')
-var Location = require('../models/location')
+var Locations = require('../models/location')
 var multer = require('multer')
 //handle file uploads
 var upload = multer({dest:'./public/uploads'})
 
 /* GET users listing. */
-router.get('/', function (req, res, next) {
+router.get('/admin', function (req, res, next) {
     // res.send('respond with a resource');
     // User.find(function (err, users) {
     // if (err) return console.error(err);
@@ -47,7 +47,7 @@ router.get('/allvehicles', function (req, res, next) {
     })
 });
 router.get('/addvehicle', function (req, res, next) {
-    Location.find({}, null,{sort: {location_name: 1}},function (err, locations) {
+    Locations.find({}, null,{sort: {location_name: 1}},function (err, locations) {
         res.render('addvehicle', {
             title: 'addvehicle',
             locations: locations
@@ -111,7 +111,7 @@ router.post('/addvehicle', function (req, res, next) {
 
 router.get('/addlocation', function (req, res, next) {
     res.render('addlocation', {
-        title: 'addlocation'
+        title: 'Vehicle Renting - Admin Area'
     })
 
 });
@@ -123,7 +123,7 @@ router.post('/addlocation', upload.single('location_image'), function (req, res,
     }else{
         var location_image = 'noimg.jpg'
     }
-    Location.findOne({
+    Locations.findOne({
         location_name: location_name
     }, function (err, location) {
         if(err) throw err
@@ -143,7 +143,7 @@ router.post('/addlocation', upload.single('location_image'), function (req, res,
                 location_name: location_name,
                 location_image: req.file.filename
             })
-            Location.addLocation(newLocation, function (err, loction) {
+            Locations.addLocation(newLocation, function (err, loction) {
                 if (err) throw err
             })
             req.flash('success', 'Location Added')

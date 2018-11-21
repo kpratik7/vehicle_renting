@@ -1,14 +1,16 @@
 extends layout
 
 block content
-  h2.page-header Login
-  p Login below
-  form(action="/users/login", method="post")
-    .form-group
+  .form-container
+    .form-header
+      h4.page-header LOGIN
+      p Please Login to access your profile using the form below.
+    form(action="/users/login", method="post")
+      .form-group
         label Username
         input.form-control(name='username', type='text', placeholder='Enter Username')
         label Password
         input.form-control(name='password', type='password', placeholder='Enter Password')
-    input.btn.btn-primary(type='submit', name='submit',value='Login')
+      input.btn.btn-primary(type='submit', name='submit',value='Login')
     
 

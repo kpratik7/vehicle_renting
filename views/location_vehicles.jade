@@ -1,17 +1,24 @@
 extend layout
 
 block content
-    h1 Vehicles in 
-        span.ucfirst #{location_name} :
-    p Total no. of vehicles in 
-        span.ucfirst #{location_name} : #{total_count} 
-    p No. of vehicles that are available to hire in  
-        span.ucfirst #{location_name} : #{inactive_count} 
-    
-    if vehicles.length>0
-        h1 Vehicle details :
-            each vehicle, i in vehicles
-                h5 Vehicle No : #{i+1}
-                p Vehicle Plate Number : #{vehicle.vehicle_id}
-                p Vehicle Type : #{vehicle.vehicle_type}
-                p Vehicle Model Name :#{vehicle.vehicle_name}
+    .location-container
+        h1 Details of  
+            span.ucfirst #{location_name} Location
+        p Currently we have total #{total_count} vehicles in 
+            span.ucfirst #{location_name} location.
+        p At present there 
+            if (inactive_count>1) 
+                | are #{inactive_count}  
+            else
+                | is #{inactive_count} 
+            span vehicles available to book in 
+            span.ucfirst #{location_name} location.
+    .location-container-header
+        if vehicles.length>0
+            h1 Vehicle details :
+    each vehicle, i in vehicles
+        .location-container-body
+            h5 Vehicle No : #{i+1}
+            p Vehicle Plate Number : #{vehicle.vehicle_id}
+            p Vehicle Type : #{vehicle.vehicle_type}
+            p Vehicle Model Name : #{vehicle.vehicle_name}

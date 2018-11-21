@@ -8,15 +8,15 @@ html(lang='en')
     link(rel="stylesheet", href="/stylesheets/bootstrap.css")
     link(rel='stylesheet', href='/stylesheets/style.css')
   body
-    nav.navbar.navbar-expand-lg.navbar-light.bg-light
-      a.navbar-brand(href="/") Vehicle Renting
+    nav.navbar.navbar-expand-lg.navbar-light
+      a.navbar-brand(href="/") XYZ - Vehicle Renting
       button.navbar-toggler(type="button", data-toggle="collapse", data-target="#navbarNav", aria-controls="navbarNav", aria-expanded="false", aria-label="Toggle navigation")
         span.navbar-toggler-icon  
       #navbarNav.collapse.navbar-collapse
         ul.navbar-nav
           if user
             if user.name!="admin"
-              li.nav-item(class=(title=='Members' ? 'active' : ''))
+              li.nav-item(class=(user.name!='admin' ? 'active' : ''))
                 a.nav-link(href="/users/member/#{user.username}") #{user.name.charAt(0).toUpperCase()+user.name.substring(1)}
                   span.sr-only (current)
               li.nav-item.dropdown
@@ -26,10 +26,9 @@ html(lang='en')
                     a.dropdown-item(href="/users/member/#{user.username}/bookvehicle") Book Vehicle
                     a.dropdown-item(href="/users/member/#{user.username}/returnvehicle") Return Vehicle
                     .dropdown-divider
-                    a.dropdown-item(href="#") Something else here
             if user.name=="admin"
-              li.nav-item(class=(title=='Admin' ? 'active' : ''))
-                a.nav-link(href="/admin") #{user.name.charAt(0).toUpperCase()+user.name.substring(1)}
+              li.nav-item(class=(user.name=='admin' ? 'active' : ''))
+                a.nav-link(href="/admin/admin") #{user.name.charAt(0).toUpperCase()+user.name.substring(1)}
                   span.sr-only (current)
               li.nav-item.dropdown
                 a#navbarDropdown.nav-link.dropdown-toggle(href="#", role="button", data-toggle="dropdown", aria-haspopup="true", aria-expanded="false") Admin Options
@@ -39,7 +38,6 @@ html(lang='en')
                     a.dropdown-item(href="/admin/addvehicle") Add Vehicle
                     a.dropdown-item(href="/admin/addlocation") Add Location
                     .dropdown-divider
-                    a.dropdown-item(href="#") Something else here
         ul.navbar-nav.ml-auto
          if !user 
             li.nav-item(class=(title=='Register' ? 'active' : ''))
@@ -52,8 +50,9 @@ html(lang='en')
     .container
       != messages()
       block content
+  footer XYZ Company - Vehicle Renting &copy 2018
 
     script(src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js")
+    script(src="/javascripts/jquery.validate.js")
     script(src="/javascripts/bootstrap.js")
     script(src="/javascripts/main.js")
-    script(src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js")

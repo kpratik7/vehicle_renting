@@ -1,20 +1,9 @@
 extend layout
 
 block content
-  h1 Members Area
-  p Welcome to the members area
-  p
-    | Vivamus hendrerit arcu sed erat molestie
-    | vehicula. Sed auctor neque eu tellus
-    | rhoncus ut eleifend nibh porttitor. Ut in.
-  p
-    | Donec congue lacinia dui, a porttitor
-    | lectus condimentum laoreet. Nunc eu
-    | ullamcorper orci. Quisque eget odio ac
-    | lectus vestibulum faucibus eget in metus.
-    | In pellentesque faucibus vestibulum. Nulla
-    | at nulla justo, eget luctus tortor.
-
+  .profile-container
+    h1 Members Area
+    p Welcome to the members area
     if users
       p
         strong Name : 
@@ -25,32 +14,33 @@ block content
       p
         strong Username : 
         | #{users.username}
-      table(style={'width':'fit-content','padding':'0px'}) 
-        tr
-          th(style={'text-align':'left','padding':'0px','width':'auto'}) Select Session No. to view session details : 
-          td
-            select.form-control(id='session_no' name="session_no")
-              option(hidden) Select Session No.
-                if sessions 
-                  each session,i in sessions
-                    option(value='#{i+1}') #{i+1}
-      if sessions
-        each session, i in sessions
-          div(id='session_id_#{i+1}',style='display:none',class='session_details')
-            strong Session No. #{i+1} 
-            li
-              strong vehicle_id : 
-              |  #{session.vehicle_id}
-            li
-              strong session_start : 
-              span.session_date #{session.session_start}
-            if(session.session_end)
-              li
-                strong session_end : 
-                span.session_date #{session.session_end}
-            else
-              li
-                strong session_end : 
-                span Vehicle not returned yet
+  .session-container-header
+    table(style={'width':'fit-content','padding':'0px'}) 
+      tr
+        th(style={'text-align':'left','padding':'0px','width':'auto'}) Select Session No. to view session details : 
+        td
+          select.form-control(id='session_no' name="session_no")
+            option(hidden) Select Session No.
+              if sessions 
+                each session,i in sessions
+                  option(value='#{i+1}') #{i+1}
+  if sessions
+    each session, i in sessions
+      div(id='session_id_#{i+1}',style='display:none',class='session-container-body')
+        strong Session No. #{i+1} 
+        li
+          strong Vehicle Plate No. : 
+          |  #{session.vehicle_id}
+        li
+          strong Vehicle Booked Time : 
+          span.session_date #{session.session_start}
+        if(session.session_end)
+          li
+            strong Vehicle Returned Time : 
+            span.session_date #{session.session_end}
+        else
+          li
+            strong Vehicle Returned Time : 
+            span Vehicle not returned yet
                 
 

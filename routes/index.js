@@ -8,9 +8,10 @@ router.get('/', function (req, res, next) {
   Location.find({}, null,{sort: {location_name: 1}},function (err, locations) {
     if (err) throw err
     res.render('index', {
-      title: 'renting',
+      title: 'Vehicle Renting',
       locations: locations
     });
+    
   })
 });
 router.get('/:location_name', function (req, res, next) {
@@ -30,7 +31,7 @@ router.get('/:location_name', function (req, res, next) {
       }, function (err, vehicles) {
         if (err) throw err
         res.render('location_vehicles', {
-          title: location_name,
+          title: 'Vehicle Renting in '+location_name.charAt(0).toUpperCase()+location_name.substring(1),
           location_name:location_name,
           vehicles: vehicles,
           total_count: total_count,
