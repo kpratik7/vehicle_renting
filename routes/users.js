@@ -132,7 +132,7 @@ router.post('/login', passport.authenticate('local', {
   failureFlash: 'Invalid Username or password.'
 }), function (req, res) {
   req.flash('success', 'You are now logged in.')
-  res.redirect('/')
+  res.redirect('/home')
 });
 
 passport.serializeUser(function (user, done) {
@@ -197,7 +197,7 @@ router.post('/register', function (req, res, next) {
         if (err) throw err
         req.flash('success', 'You are now a Registered User.')
         res.location('/');
-        res.redirect('/')
+        res.redirect('/home')
       });
     }
   })

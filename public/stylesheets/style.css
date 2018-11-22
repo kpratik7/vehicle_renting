@@ -9,7 +9,7 @@ body {
     min-height: 100vh;
     background-color: #F2E9E4;
     position: relative;
-    padding-bottom: 50px;
+    /* padding-bottom: 50px; */
 }
 
 form {
@@ -20,6 +20,9 @@ form {
 nav{
     background-color: #2589BD;
     color:white;
+    -webkit-box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 1);
+    -moz-box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 1);
+    box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 1);
 }
 footer{
     position:absolute;
@@ -82,6 +85,40 @@ th {
     text-align: center;
     padding: 10px;
 }
+.main-bg{
+    background-image: url('../images/pexels-photo-1432531-min.jpeg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 100%;
+}
+.main-container{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    background-color: black;
+    color: white;
+    padding: 25px;
+    min-width: 100%;
+    mix-blend-mode: multiply;
+    text-align: center;
+}
+
+.main-container-btn{
+    /* height: 50px; */
+    width: fit-content;
+    background-color: #2589BD;
+    position: relative; 
+    /* top: 50%; */
+    left: 50%;
+    transform: translate(-50%,0);
+    border-radius: 10px;
+    padding: 10px 20px;
+    color: black;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 35px;
+}
 .navbar{
    /* padding-left: 50px;
    padding-right: 50px; */
@@ -95,6 +132,7 @@ th {
     grid-auto-flow: row;
     grid-gap: 25px;
     /* grid-template-rows: repeat(auto-fill, minmax(190px, 1fr)); */
+    padding-bottom: 50px;
 }
 
 .item {
@@ -129,13 +167,16 @@ th {
 }
 .intro-container{
     /* background-color: grey; */
-    padding: 25px;
+    padding: 25px 25px 10px 25px;
+    /* min-height: 400px; */
+    width:100%;
+    
 }
 .intro-container-header{
     /* background-color: #abccd1; */
     text-decoration: underline;
-    padding: 15px;
-    margin: 25px 0px;
+    padding: 0px 15px 25px 15px;
+    /* margin: 25px 0px; */
 }
 .intro-container-body{
     background-color: cornflowerblue;

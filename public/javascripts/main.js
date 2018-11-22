@@ -87,5 +87,9 @@ $(document).ready(
                 }
             }
         })
+        $('.main-bg').css('height', $(window).height())
+        $('.main-container-btn').on('click',function (e) {
+            window.location='/home'                   
+        })
     })
     

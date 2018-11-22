@@ -3,8 +3,19 @@ var router = express.Router();
 
 var Location = require('../models/location')
 var Vehicle = require('../models/vehicle')
+
 /* GET home page. */
 router.get('/', function (req, res, next) {
+  Location.find({}, null,{sort: {location_name: 1}},function (err, locations) {
+    if (err) throw err
+    res.render('main', {
+      title: 'Vehicle Renting',
+      locations: locations
+    });
+  })
+});
+
+router.get('/home', function (req, res, next) {
   Location.find({}, null,{sort: {location_name: 1}},function (err, locations) {
     if (err) throw err
     res.render('index', {

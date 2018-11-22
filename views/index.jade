@@ -3,7 +3,25 @@ extend layout
 block content
   .intro-container
     h2(style='text-align:center;text-decoration:underline') XYZ Company
-    p We, XYZ company are leading in the field of providing GOOD quality, MAINTAINED Vehicles for renting pusposes. We provide Commercial as well as Personal vehicles. 
+    p We, XYZ company are leading in the field of providing GOOD quality, MAINTAINED Vehicles for renting purposes. We provide Commercial as well as Personal vehicles. 
+    h4 Types of Vehicles we provide
+    ul(style="margin-left:40px; margin-bottom:10px")
+      li 
+        h6 2-Wheeler's
+        ul(style="margin-left:20px; margin-bottom:10px")
+          li Geared Bike's
+          li Non Geared Bike's
+      li
+        h6 4-Wheeler's
+        ul(style="margin-left:20px; margin-bottom:10px")
+          li Hatchback's
+          li Sedan's
+          li SUV's
+    h6 If you are a new User please 
+      a(href="/users/register") Register 
+      | using the registration form, or if you are a returning user 
+      a(href="/users/login") Login 
+      | to your account to use our services.
   .intro-container-header 
     h4(style='margin-bottom:0px; text-align:center') Location where our Vehicles are available
   .main
